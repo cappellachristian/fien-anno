@@ -1,0 +1,21 @@
+<form [formGroup]="myForm" (ngSubmit)="addComment()" class="form-group">
+    <input class="form-control" type="text" [formControl]="myForm.controls['titolo']" placeholder="titolo" />
+    <div *ngIf="myForm.controls['titolo'].hasError('required')"
+     class="alert alert-danger">Il campo titolo è richiesto!
+    </div>
+    <button type="submit" class="btn btn-primary">Invia</button>
+</form>
+<ul class="jumbotron">
+    <li  *ngFor="let comm of comments">{{comm.user.username}}: {{comm.titolo}}
+     <form [formGroup]="comForm" (ngSubmit)="addCommentToComment(comm.comments)" class="form-group">
+        <input class="form-control" type="text" [formControl]="comForm.controls['comment']" placeholder="commento" />
+        <div *ngIf="comForm.controls['comment'].hasError('required')"
+         class="alert alert-danger">Il campo titolo è richiesto!
+        </div>
+        <button type="submit" class="btn btn-primary">Invia</button>
+     </form>
+     <ul>
+         <li *ngFor="let c of comm.comments">{{c.user.username}} --> {{c.titolo}}</li>
+     </ul>
+    </li>
+</ul>
